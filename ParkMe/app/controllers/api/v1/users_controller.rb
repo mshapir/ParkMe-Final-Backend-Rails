@@ -7,7 +7,7 @@ class Api::V1::UsersController < ApplicationController
 
     if user && user.authenticate(params[:password])
         token = JsonWebToken.encode({user_id: user.id})
-        render json: {token: token}, status: :ok
+        render json: {token: token, user: user}, status: :ok
     else
       render json: {error: 'Invalid username / password'}, status: :unauthorized
     end
