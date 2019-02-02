@@ -1,9 +1,6 @@
-class Api::V1::UsersController < ApplicationController
-
-  skip_before_action :authenticate_request!, only: [:login, :create]
-
+class Api::V1::ParkMeUsersController < ApplicationController
   def login
-    @user = User.find_by(username: params[:username].to_s.downcase)
+    @user = ParkMeUser.find_by(username: params[:username].to_s.downcase)
 
     if @user && @user.authenticate(params[:password])
         token = JsonWebToken.encode({user_id: @user.id})
@@ -15,12 +12,12 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = ParkMeUser.all
     render json: @users, status: 200
   end
 
   def create
-      @user = User.create(user_params)
+      @user = ParkMeUser.create(user_params)
       if @user.save
         user = UserSerializer.new(@user)
         token = JsonWebToken.encode({user_id: @user.id})
@@ -33,13 +30,13 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(username: params[:username])
+    @user = ParkMeUser.find_by(username: params[:username])
     render json: @user
   end
 
   private
 
   def user_params
-    params.permit(:name, :username)
+    params.permit(:name, :username, :password, :password_confirmation, :type = 'ParkMeUser')
   end
 end

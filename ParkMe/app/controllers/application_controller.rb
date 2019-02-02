@@ -3,7 +3,6 @@ class ApplicationController < ActionController::API
   before_action :authenticate_request!
 protected
   def authenticate_request!
-    # byebug
     if !payload || !JsonWebToken.valid_payload(payload.first)
       return invalid_authentication
     end

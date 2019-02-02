@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :listings
       resources :reservations
+      resources :parkmeusers
       resources :users do
         collection do
           post '/login', to: 'users#login'
