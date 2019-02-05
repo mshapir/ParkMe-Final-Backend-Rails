@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_02_224327) do
+ActiveRecord::Schema.define(version: 2019_01_30_223249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,12 +27,6 @@ ActiveRecord::Schema.define(version: 2019_02_02_224327) do
     t.index ["user_id"], name: "index_listings_on_user_id"
   end
 
-  create_table "park_me_users", force: :cascade do |t|
-    t.string "password_digest"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "reservations", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "listing_id"
@@ -42,18 +36,10 @@ ActiveRecord::Schema.define(version: 2019_02_02_224327) do
     t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
-  create_table "social_users", force: :cascade do |t|
-    t.string "userId"
-    t.string "accessToken"
-    t.string "signedRequest"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "username"
-    t.string "type"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

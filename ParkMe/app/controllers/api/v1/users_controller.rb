@@ -7,7 +7,8 @@ class Api::V1::UsersController < ApplicationController
 
     if user && user.authenticate(params[:password])
         token = JsonWebToken.encode({user_id: user.id})
-        render json: {token: token, user: user}, status: :ok
+        user_data = UserSerializer.new(user)
+        render json: {token: token, user: user_data}, status: :ok
     else
       render json: {error: 'Invalid username / password'}, status: :unauthorized
     end
@@ -23,9 +24,11 @@ class Api::V1::UsersController < ApplicationController
     @user = User.create(user_params)
     if @user.save
     response = { message: 'User created successfully'}
-    render json: @user, status: 201
+    user = UserSerializer.new(@user)
+    token = JsonWebToken.encode({user_id: @user.id})
+    render json: {user: user, token: token}, status: 201
    else
-    render json: @user.errors, status: :bad
+    render json: {errors: @user.errors.full_messages}, status: :bad
    end
   end
 
