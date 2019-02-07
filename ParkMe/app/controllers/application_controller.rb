@@ -13,7 +13,7 @@ protected
   end
 
   def invalid_authentication
-    render json: {error: 'Invalid Request'}, status: :unauthorized
+    render json: [error: 'Invalid Request'], status: :unauthorized
   end
 
 private

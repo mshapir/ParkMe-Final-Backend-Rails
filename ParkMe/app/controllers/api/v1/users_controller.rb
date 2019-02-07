@@ -33,7 +33,8 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(username: params[:id])
+    user = JsonWebToken.decode(request.authorization)
+    @user = User.find(user[0]["user_id"])
     render json: @user
   end
 
