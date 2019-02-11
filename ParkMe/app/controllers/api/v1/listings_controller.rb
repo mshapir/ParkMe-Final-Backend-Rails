@@ -1,8 +1,12 @@
 class Api::V1::ListingsController < ApplicationController
   before_action :find_listing, only: [:update, :show, :destroy]
   def index
-    @listings = Listing.all
-    render json: @listings, status: 200
+    if params[:user_id]
+      @listings = User.find(params[:user_id]).created_listings
+    else
+      @listings = Listing.all
+    end
+      render json: @listings, status: 200
   end
 
   def show

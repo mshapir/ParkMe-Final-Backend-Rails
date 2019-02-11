@@ -3,8 +3,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       # get "users/:user_id/reservations", to: "reservations#show"
       resources :listings
+      resources :reservations
       resources :users do
         resources :reservations
+        resources :listings
         collection do
           post '/login', to: 'users#login'
           post '/current_user', to: 'users#show'
