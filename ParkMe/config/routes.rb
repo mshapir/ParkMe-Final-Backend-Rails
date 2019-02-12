@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       # get "users/:user_id/reservations", to: "reservations#show"
-      resources :listings
+      resources :reviews
+      resources :listings do
+        resources :reviews
+      end
       resources :reservations
       resources :users do
         resources :reservations
