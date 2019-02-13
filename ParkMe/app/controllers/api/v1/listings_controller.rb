@@ -15,7 +15,12 @@ class Api::V1::ListingsController < ApplicationController
 
   def create
     @listing = Listing.create(listing_params)
-    render json: @listing, status: 201
+    if @listing.save
+
+      render json: @listing, status: 201
+    else
+      render json: {errors: @listing.errors.full_messages}, status: :bad
+    end
   end
 
   def update

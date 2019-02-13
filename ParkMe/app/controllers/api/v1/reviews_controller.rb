@@ -11,7 +11,12 @@ class Api::V1::ReviewsController < ApplicationController
 
   def create
     @review = Review.create(review_params)
-    render json: @review, status: 201
+    if @review.save
+
+      render json: @review, status: 201
+    else
+      render json: {errors: @review.errors.full_messages}, status: :bad
+    end
   end
 
   def show
