@@ -57,6 +57,9 @@ GEM
       activesupport
     concurrent-ruby (1.1.4)
     crass (1.0.4)
+    ddtrace (0.22.0)
+      msgpack
+    dogstatsd-ruby (4.2.0)
     erubi (1.8.0)
     ffi (1.10.0)
     globalid (0.4.2)
@@ -148,6 +151,8 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
   byebug
+  ddtrace
+  dogstatsd-ruby
   jwt
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
